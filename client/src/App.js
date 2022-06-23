@@ -5,6 +5,7 @@ function App() {
   return (
     <div className="App">
       <header>
+        <NavLink to='/home'>CT</NavLink>
         <nav>
           <NavLink to='/home'>Home</NavLink>
           <NavLink to='/inventory'>Inventory</NavLink>
@@ -12,7 +13,7 @@ function App() {
         </nav>
       </header>
       <main>
-
+        
       </main>
 
       <Routes>
