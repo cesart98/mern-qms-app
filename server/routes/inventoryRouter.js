@@ -1,32 +1,18 @@
 var express = require('express');
 var router = express.Router();
 var inventory_controller = require('../controllers/inventoryController');
+var batch_controller = require('../controllers/batchController');
 
-// GET inventory page.
 router.get('/', inventory_controller.index);
 
-// GET request to create batch.
-router.get('/batch/create', inventory_controller.batch_create_get);
+router.get('/batch-list', inventory_controller.read);
 
-// POST request to create batch.
-router.post('/batch/create', inventory_controller.batch_create_post);
+router.post('/batch', batch_controller.create);
 
-// GET request to delete batch.
-router.get('/batch/:id/delete', inventory_controller.batch_delete_get);
+router.get('/batch/:batchId', batch_controller.read);
 
-// POST request to delete batch.
-router.post('/batch/:id/delete', inventory_controller.batch_delete_post);
+router.put('/batch/:batchId', batch_controller.update);
 
-// GET request to update batch.
-router.get('/batch/:id/update', inventory_controller.batch_update_get);
-
-// POST request to update batch.
-router.post('/batch/:id/update', inventory_controller.batch_update_post);
-
-// GET request for one batch.
-router.get('/batch/:id', inventory_controller.batch_detail);
-
-// GET request for list of all batches.
-router.get('/batches', inventory_controller.inventory_list);
+router.delete('/batch/:batchId', batch_controller.delete);
 
 module.exports = router;
