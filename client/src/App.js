@@ -1,26 +1,19 @@
 import './App.css';
-import { NavLink, Route, Routes } from 'react-router-dom';
+import Header from './components/Header';
+import Main from './components/Main';
+import Footer from './components/Footer';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 function App() {
-  return (
-    <div className="App">
-      <header>
-        <NavLink to='/home'>CT</NavLink>
-        <nav>
-          <NavLink to='/home'>Home</NavLink>
-          <NavLink to='/inventory'>Inventory</NavLink>
-          <NavLink to='/performance'>Performance</NavLink>
-        </nav>
-      </header>
-      <main>
-        
-      </main>
+  let location = useLocation();
+  let navigate = useNavigate();
 
-      <Routes>
-        <Route path='/home'></Route>
-        <Route path='/inventory'></Route>
-        <Route path='/performance'></Route>
-      </Routes>
+  return (
+    <div className="h-screen grid grid-rows-[auto_1fr_auto] grid-cols-1">
+      <Header />
+      <Main />
+      <Footer />
     </div>
   );
 }
