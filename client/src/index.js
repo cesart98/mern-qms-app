@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './index.css';
-import HomePage from './App';
-import LoginPage from './LoginPage'
+import HomePage from './components/HomePage';
+import LoginPage from './components/LoginPage'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
