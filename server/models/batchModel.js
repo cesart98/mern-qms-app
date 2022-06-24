@@ -14,7 +14,7 @@ var BatchSchema = new Schema({
 });
 
 BatchSchema.virtual('url').get(function() {
-  return '/inventory/batch' + this._id;
+  return '/inventory/batch/' + this._id;
 });
 
 module.exports = mongoose.model('Batch', BatchSchema);
