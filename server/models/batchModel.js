@@ -10,7 +10,11 @@ var BatchSchema = new Schema({
   quantity_total: {type: String, required: true},
   date_recieve: {type: String, required: true},
   date_expire: {type: String, required: true},
-  status: {type: String, required: true}
+  status: { type: String, required: true, enum: [
+    'Pending Inspection', 'Pending Sampling',
+    'Pending Testing', 'Pending Review', 
+    'Pending Release', 'Released'
+  ], default: 'Pending Inspection' }
 });
 
 BatchSchema.virtual('url').get(function() {

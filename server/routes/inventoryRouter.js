@@ -4,7 +4,7 @@ var models = require('../models');
 
 router.get('/batches', async (req, res) => {
   const batches = await models.Batch.find();
-  return res.send(`Read all batches: ${batches}`);
+  return res.json(batches);
 });
 
 router.post('/batches', async (req, res) => {
@@ -15,7 +15,7 @@ router.post('/batches', async (req, res) => {
 
 router.get('/batches/:batchId', async (req, res) => {
   const batch = await models.Batch.findById(req.params.batchId);
-  return res.send(`Read specific batch: ${batch}`);
+  return res.json(batch);
 });
 
 router.put('/batches/:batchId', async (req, res) => {
