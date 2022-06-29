@@ -1,23 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import './index.css';
-import HomePage from './components/HomePage';
-import LoginPage from './components/LoginPage'
+import App from './components/App.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<HomePage />}>
-          <Route path="dashboard" element={<HomePage />} />
-          <Route path="inventory" element={<HomePage />} />
-          <Route path="training" element={<HomePage />} />
-          <Route path="performance" element={<HomePage />} />
-        </Route>
-        <Route path="/login" element={<LoginPage />} />
-      </Routes>
+      <App />
     </BrowserRouter>
   </React.StrictMode>
 );
