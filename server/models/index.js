@@ -1,6 +1,5 @@
 var Batch  = require('./batchModel.js');
-var Inventory = require('./inventoryModel.js')
 
-const models = { Batch, Inventory};
+const models = { Batch };
 
 module.exports = models;

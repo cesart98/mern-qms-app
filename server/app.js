@@ -5,8 +5,6 @@ var logger = require('morgan');
 require('dotenv').config();
 
 var indexRouter = require('./routes/indexRouter');
-var inventoryRouter = require('./routes/inventoryRouter');
-var usersRouter = require('./routes/usersRouter');
 
 var app = express();
 
@@ -22,8 +20,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/', indexRouter);
-app.use('/inventory', inventoryRouter);
-app.use('/users', usersRouter);
+app.use('/api', indexRouter);
 
 module.exports = app;
