@@ -6,7 +6,7 @@
     "start": "node ./bin/www",
     "devstart": "nodemon ./bin/www",
     "serverstart": "DEBUG=server:* npm run devstart",
-    "test": "jest"
+    "test": "jest --watchAll --testEnvironment=node"
   },
   "dependencies": {
     "async": "^3.2.4",
@@ -15,6 +15,7 @@
     "debug": "~2.6.9",
     "dotenv": "^16.0.1",
     "express": "~4.16.1",
+    "mongodb-memory-server": "^8.7.2",
     "mongoose": "^6.4.0",
     "morgan": "~1.9.1"
   },
