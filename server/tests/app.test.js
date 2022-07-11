@@ -27,19 +27,47 @@ describe("Batches API", () => {
 
   describe("GET Requests", () => {
     it("Should fetch all batches", async () => {
-      const response = await request(app).get('/api/batches');
+      const response = await request(app)
+        .get('/api/batches')
       expect(response.status).toBe(200);
       expect(response.headers["content-type"]).toMatch(/json/);
     });
     it("Should fetch specific batch", async () => {
-      const response = await request(app).get('/api/batches/62b248c3e18f98e690d0ee7c');
+      const response = await request(app)
+        .get('/api/batches/62b248c3e18f98e690d0ee7c')
       expect(response.status).toBe(200);
       expect(response.headers["content-type"]).toMatch(/json/);
     });
   })
 
   describe("POST Requests", () => {
-    it.todo("Should create new batch");
+    const testBatch = {
+      id: '77777GG-1' ,
+      material_id: 'T77777AN',
+      material_name: "Test Batch Seven",
+      location: 'FL-07',
+      client: 'CL-7',
+      quantity_total: '700g',
+      date_recieve: '07JAN10',
+      date_expire: '07JAN11',
+      status: 'Pending Inspection',
+    }
+
+    it("Should create new batch", async () => {
+      let response = await request(app)
+        .post('/api/batches')
+        .send(testBatch)
+      expect(response.status).toBe(200);
+      expect(response.headers["content-type"]).toMatch(/json/);
+
+      response = await request(app)
+        .get(`/api/batches/${response.body._id}`)
+      expect(response.status).toBe(200);
+      expect(response.headers["content-type"]).toMatch(/json/);
+      expect(response.body.id).toEqual(testBatch.id);
+  
+    });
+
   })
 
   describe("PUT Requests", () => {

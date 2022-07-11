@@ -22,14 +22,15 @@ router.get('/:batchId', async (req, res) => {
     return res.status(500).json({ error: err.message });
   }
 });
-
-/*
 router.post('/', async (req, res) => {
-  const formProps = Object.fromEntries(req.body.formData.entries());
-  const batch = await Batch.create(formProps);
-  return res.send(`Created batch: ${batch}`);
+  try {
+    const batch = await Batch.create(req.body);
+    return res.status(200).json(batch);  
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
 });
-
+/*
 router.put('/:batchId', async (req, res) => {
   const updatedProps = Object.fromEntries(req.body.formData.entries());
   const batch = await Batch.findByIdAndUpdate(req.params.batchId, updatedProps);
