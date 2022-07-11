@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var batchesRouter = require('./batches/batches.js');
+var batchesRouter = require('./batches/');
 
 router.use('/batches', batchesRouter);
 
