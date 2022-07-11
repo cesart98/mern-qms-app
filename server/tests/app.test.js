@@ -1,19 +1,32 @@
-const request = require('supertest');
-const express = require('express');
-const mongoose = require('mongoose');
-const app = express();
-require('dotenv').config();
+var request = require('supertest');
+var mongoose = require('mongoose');
+var express = require('express');
+var app = express();
 
-const indexRouter = require('../routes/indexRouter.js');
+var indexRouter = require('../routes');
+var { MongoMemoryServer } = require('mongodb-memory-server');
 
 app.use(express.urlencoded({ extended: false }));
-app.use('/api', indexRouter);
+app.use("/api", indexRouter);
 
 describe("Batches API", () => {
 
+  beforeAll(async () => {
+    const mongoServer = await MongoMemoryServer.create();
+    await mongoose.connect(mongoServer.getUri());
+  })
+  afterAll(async () => {
+    await mongoose.disconnect();
+    await mongoose.connection.close();
+  })
+  
   describe("GET Requests", () => {
-    it.todo("Should return all batches");
-    it.todo("Should return specific batch");
+    it("Should fetch all batches", async () => {
+      const response = await request(app).get('/api/batches');
+      expect(response.statusCode).toBe(200);
+      expect(response.headers['content-type']).toMatch(/json/);
+    });
+    it.todo("Should fetch specific batch");
   })
 
   describe("POST Requests", () => {
