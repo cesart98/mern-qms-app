@@ -36,7 +36,7 @@ describe("Batches API", () => {
   })
 
   describe("POST Requests", () => {
-    const testBatch = {
+    const newBatch = {
       id: '77777GG-1' ,
       material_id: 'T77777AN',
       material_name: "Test Batch Seven",
@@ -51,15 +51,13 @@ describe("Batches API", () => {
     it("Should create new batch", async () => {
       let response = await request(app)
         .post('/api/batches')
-        .send(testBatch)
-      expect(response.status).toBe(200);
-      expect(response.headers["content-type"]).toMatch(/json/);
+        .send(newBatch)
 
       response = await request(app)
         .get(`/api/batches/${response.body._id}`)
       expect(response.status).toBe(200);
       expect(response.headers["content-type"]).toMatch(/json/);
-      expect(response.body.id).toEqual(testBatch.id);
+      expect(response.body.id).toEqual(newBatch.id);
   
     });
 
