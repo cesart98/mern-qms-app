@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var { Batch } = require('../../models');
+var { Batch } = require('../models');
 
 // GET all batches
 router.get('/', async (req, res) => {
