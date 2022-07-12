@@ -1,28 +1,23 @@
 var request = require('supertest');
-var mongoose = require('mongoose');
 var express = require('express');
-var { Batch } = require('../models');
 var app = express();
 require('dotenv').config();
 
 var indexRouter = require('../routes');
-var { MongoMemoryServer } = require('mongodb-memory-server');
-const { each } = require('async');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use("/api", indexRouter);
 
+const testServer = require('../utils/testServer.js');
+
 describe("Batches API", () => {
 
   beforeAll(async () => {
-    const mongoServer = await MongoMemoryServer.create();
-    await mongoose.connect(mongoServer.getUri(), { useNewUrlParser: true });
-    require('../populate-db.js');
+    testServer.connect();
   })
   afterAll(async () => {
-    await mongoose.disconnect();
-    await mongoose.connection.close();
+    testServer.disconnect();
   })
 
   describe("GET Requests", () => {
