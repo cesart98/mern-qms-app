@@ -1,4 +1,4 @@
-var Batch  = require('./batchModel.js');
+var Batch  = require('./batch.js');
 
 const models = { Batch };
 
