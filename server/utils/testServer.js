@@ -6,7 +6,7 @@ let mongoServer;
 module.exports.connect = async () => {
   mongoServer = await MongoMemoryServer.create();
   mongoose.connect(mongoServer.getUri(), { useNewUrlParser: true });
-  require('../populate-db.js');
+  require('./populateDb.js');
 };
 
 module.exports.disconnect = async () => {
