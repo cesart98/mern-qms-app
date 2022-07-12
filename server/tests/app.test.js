@@ -60,11 +60,19 @@ describe("Batches API", () => {
       expect(response.body.id).toEqual(newBatch.id);
   
     });
-
   })
 
   describe("PUT Requests", () => {
-    it.todo("Should update specific batch");
+    const newBatch = {
+      status: 'Released',
+    }
+    it("Should update specific batch", async () => {
+      let response = await request(app)
+        .put('/api/batches/62b248c3e18f98e690d0ee7c')
+        .send(newBatch)
+      expect(response.status).toBe(200);
+      expect(response.headers["content-type"]).toMatch(/json/);
+    });
   })
 
   describe("DELETE Requests", () => {
