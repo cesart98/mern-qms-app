@@ -52,30 +52,31 @@ describe("Batches API", () => {
       let response = await request(app)
         .post('/api/batches')
         .send(newBatch)
-
-      response = await request(app)
-        .get(`/api/batches/${response.body._id}`)
-      expect(response.status).toBe(200);
+      expect(response.status).toBe(201);
       expect(response.headers["content-type"]).toMatch(/json/);
-      expect(response.body.id).toEqual(newBatch.id);
   
     });
   })
 
   describe("PUT Requests", () => {
-    const newBatch = {
+    const updatedProperty = {
       status: 'Released',
     }
     it("Should update specific batch", async () => {
-      let response = await request(app)
+      const response = await request(app)
         .put('/api/batches/62b248c3e18f98e690d0ee7c')
-        .send(newBatch)
+        .send(updatedProperty)
       expect(response.status).toBe(200);
       expect(response.headers["content-type"]).toMatch(/json/);
     });
   })
 
   describe("DELETE Requests", () => {
-    it.todo("Should delete specific batch");
+    it("Should delete specific batch", async () => {
+      const response = await request(app)
+        .delete('/api/batches/62b248c3e18f98e690d0ee7c')
+      expect(response.status).toBe(200);
+      expect(response.headers["content-type"]).toMatch(/json/);
+    });
   })
 })

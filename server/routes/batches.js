@@ -25,22 +25,28 @@ router.get('/:batchId', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
     const batch = await Batch.create(req.body);
+    return res.status(201).json(batch);  
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+});
+
+router.put('/:batchId', async (req, res) => {
+  try {
+    const batch = await Batch.findByIdAndUpdate(req.params.batchId, req.body);
     return res.status(200).json(batch);  
   } catch (err) {
     return res.status(500).json({ error: err.message });
   }
 });
-/*
-router.put('/:batchId', async (req, res) => {
-  const updatedProps = Object.fromEntries(req.body.formData.entries());
-  const batch = await Batch.findByIdAndUpdate(req.params.batchId, updatedProps);
-  return res.send(`Updated specific batch: ${batch}`);
-});
 
 router.delete('/:batchId', async (req, res) => {
-  const batch = await Batch.findByIdAndDelete(req.params.batchId);
-  return res.send(`Deleted specific batch: ${batch}`);
+  try {
+    const batch = await Batch.findByIdAndDelete(req.params.batchId);
+    return res.status(200).json(batch);  
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
 });
-*/
 
 module.exports = router;
