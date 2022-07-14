@@ -3,7 +3,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 require('dotenv').config();
-require('./mongoConfig.js');
+require('./utils/mongoConfig.js');
 
 var indexRouter = require('./routes');
 
