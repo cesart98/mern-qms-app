@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { Home, Inventory, Login, SignUp, NotFound } from './components'
+import { Navbar, Home, Inventory, Login, SignUp, NotFound } from './components'
 
 const batchList = [
   {"_id":"62b248c3e18f98e690d0ee7c","id":"33333CC-1","material_id":"T33333AN","material_name":"Test Batch Three","location":"FL-03","client":"CL-3","quantity_total":"300g","date_recieve":"03JAN10","date_expire":"03JAN11","status":"Pending Testing","__v":0},
@@ -16,13 +16,13 @@ function App() {
     <div className="relative flex flex-col 
     min-h-screen w-screen justify-start items-stretch">
       <header>
-        
+        <Navbar />
       </header>
 
       <main>
         <Routes>
           <Route path="home" element={<Home />} />
-          <Route path="batches/*" element={<Inventory />} />
+          <Route path="inventory/*" element={<Inventory />} />
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<SignUp />} />
           <Route path="*" element={<NotFound />} />

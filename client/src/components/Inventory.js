@@ -1,16 +1,15 @@
 import { Routes, Route, useNavigate, useParams } from "react-router-dom";
-import Card from "./Main/Card";
 
 
 function InventoryNavCards() {
   const navigate = useNavigate();
   return (
     <div className='grid gap-2 grid-cols-3 grid-rows-2 place-content-stretch'>
-      <Card>
+      <div>
         <h5>List all batches</h5>
         <button className='bg-blue-500 px-2 rounded text-white' onClick={(e) => navigate('batches')}>Go</button>
-      </Card>
-      <Card>
+      </div>
+      <div>
         <h5>Search by batch number</h5>
         <div className="flex flex-nowrap">
         <label>
@@ -19,7 +18,7 @@ function InventoryNavCards() {
 
         </div>
         <button className='bg-blue-500 px-2 text-white rounded'>Search</button>
-      </Card>
+      </div>
     </div>
   );
 }
@@ -64,16 +63,16 @@ function BatchInfoPage(props) {
 
 export default function Inventory(props) {
 
-  const batchesDeepCopy = JSON.parse(JSON.stringify(props.batches));
-  const headerContent = Object.keys(batchesDeepCopy[0]);
-  const bodyContent = batchesDeepCopy.map(data => Object.values(data));
+  //const batchesDeepCopy = JSON.parse(JSON.stringify(props.batches));
+  //const headerContent = Object.keys(batchesDeepCopy[0]);
+  //const bodyContent = batchesDeepCopy.map(data => Object.values(data));
   
   return (
       <Routes>
-        <Route path='/' element={<InventoryNavCards />} />
+        <Route path='/' element={<div>inventory</div>} />
         <Route path='batches'>
-            <Route index element={<BatchTable headers={headerContent} rows={bodyContent}/>}/>
-            <Route path=':batchId' element={<BatchInfoPage batches={batchesDeepCopy}/>} />
+            <Route index element={<div>batch table</div>}/>
+            <Route path=':batchId' element={<div>batch info</div>} />
         </Route>
       </Routes>
   );

@@ -3,34 +3,34 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";  // optional
 import userEvent from "@testing-library/user-event";
 import App from '../App.js';
-import {BrowserRouter, MemoryRouter} from 'react-router-dom'
+import {BrowserRouter} from 'react-router-dom'
 
 const renderWithRouter = (ui, { route = '/' } = {}) => {
   window.history.pushState({}, 'Test page', route);
-  return render(ui, { wrapper: BrowserRouter });
+  return { ...render(ui, { wrapper: BrowserRouter }) }
 }
 
 describe("App component", () => {
-  describe("Home page", () => {
-    const { getByRole } = renderWithRouter(<App />, { route: '/home' });
-    it.todo("should appear at /home path");
-    it("should render Home component", () => {
-      expect(screen.getByRole('navigation')).toBeInTheDocument();
-    });
+  it('should render home page', () => {
+    renderWithRouter(<App/>, { route: '/home' });
+    expect(location.pathname).toEqual('/home');
+    expect(screen.getByRole("banner")).toBeInTheDocument();
+    expect(screen.getByRole("main")).toBeInTheDocument();
+    expect(screen.getByRole("contentinfo")).toBeInTheDocument();
   })
-  describe("Inventory page", () => {
-    it.todo("should appear at /inventory path");
-    it.todo("should render Inventory component");
+  it('should render inventory page', () => {
+    renderWithRouter(<App/>, { route: '/inventory' });
+    expect(location.pathname).toEqual('/inventory');
+    expect(screen.getByRole("banner")).toBeInTheDocument();
+    expect(screen.getByRole("main")).toBeInTheDocument();
+    expect(screen.getByRole("contentinfo")).toBeInTheDocument();
   })
-  describe("Signup page", () => {
-    it.todo("should appear at /signup path");
-    it.todo("should render SignUp component");
+  it('should render login page', () => {
+    renderWithRouter(<App/>, { route: '/login' });
+    expect(location.pathname).toEqual('/login');
+    expect(screen.getByRole("banner")).toBeInTheDocument();
+    expect(screen.getByRole("main")).toBeInTheDocument();
+    expect(screen.getByRole("contentinfo")).toBeInTheDocument();
   })
-  describe("Login page", () => {
-    it.todo("should appear at /login path");
-    it.todo("should render Login component");
-  })
-  describe("Invalid page", () => {
-    it.todo("should render PageNotFound");
-  })
+  it.todo('should render page not found');
 })
