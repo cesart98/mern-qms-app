@@ -1,11 +1,11 @@
 var express = require('express');
-var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 require('dotenv').config();
 require('./utils/mongoConfig.js');
+require('./utils/passportConfig.js');
 
-var indexRouter = require('./routes');
+var routes = require('./routes');
 
 var app = express();
 
@@ -14,6 +14,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/api', indexRouter);
+app.use('/api', routes);
 
 module.exports = app;

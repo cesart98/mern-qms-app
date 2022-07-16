@@ -69,11 +69,9 @@ export default function Inventory(props) {
   
   return (
       <Routes>
-        <Route path='/' element={<div>inventory</div>} />
-        <Route path='batches'>
-            <Route index element={<div>batch table</div>}/>
-            <Route path=':batchId' element={<div>batch info</div>} />
-        </Route>
+        <Route index element={<div>inventory index</div>}></Route>
+        <Route path="/batches" element={<div>batches</div>}></Route>
+        <Route path="/batches/:batchId" element={<div>batch</div>}></Route>
       </Routes>
   );
 }
