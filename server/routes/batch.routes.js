@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
-
-var batchController = require('../controllers/batches')
+var { batchController } = require('../controllers')
 
 router.get('/', batchController.readAllBatches);
 
