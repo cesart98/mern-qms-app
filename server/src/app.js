@@ -18,4 +18,8 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 app.use('/api', routes);
 
+app.use((req, res, next) => {
+  res.status(404).json({ message: "Sorry can't find that!"})
+})
+
 export default app;
