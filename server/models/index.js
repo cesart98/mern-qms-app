@@ -1,6 +1,6 @@
-var Batch  = require('./batch.js');
-var User = require('./user.js')
+var batchModel  = require('./batch.model.js');
+var userModel = require('./user.model.js')
 
-const models = { Batch, User };
+const models = { batchModel, userModel };
 
 module.exports = models;
