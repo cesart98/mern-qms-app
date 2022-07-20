@@ -1,19 +1,21 @@
-var express = require('express');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+import express, { json, urlencoded } from 'express';
+import cookieParser from 'cookie-parser';
+import logger from 'morgan';
+import path from 'path';
 require('dotenv').config();
-require('./utils/mongoConfig.js');
-require('./utils/passportConfig.js');
+import './utils/mongoConfig.js';
+import './utils/passportConfig.js';
 
-var routes = require('./routes');
+import routes from './routes';
 
 var app = express();
 
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(json());
+app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(express.static(path.join(__dirname, '../public')));
 
 app.use('/api', routes);
 
-module.exports = app;
+export default app;
