@@ -1,8 +1,8 @@
-var { Batch } = require('../models');
+var { batchModel } = require('../models');
 
 exports.readAllBatches =  async (req, res) => {
   try {
-    const batches = await Batch.find();
+    const batches = await batchModel.find();
     return res.status(200).json(batches);
   } catch (err) {
     return res.status(500).json({ error: err.message });
@@ -11,7 +11,7 @@ exports.readAllBatches =  async (req, res) => {
 
 exports.readBatch = async (req, res) => {
   try {
-    const batch = await Batch.findById(req.params.batchId);
+    const batch = await batchModel.findById(req.params.batchId);
     return res.status(200).json(batch);  
   } catch (err) {
     return res.status(500).json({ error: err.message });
@@ -20,7 +20,7 @@ exports.readBatch = async (req, res) => {
 
 exports.createBatch = async (req, res) => {
   try {
-    const batch = await Batch.create(req.body);
+    const batch = await batchModel.create(req.body);
     return res.status(201).json(batch);  
   } catch (err) {
     return res.status(500).json({ error: err.message });
@@ -29,7 +29,7 @@ exports.createBatch = async (req, res) => {
 
 exports.updateBatch = async (req, res) => {
   try {
-    const batch = await Batch.findByIdAndUpdate(req.params.batchId, req.body);
+    const batch = await batchModel.findByIdAndUpdate(req.params.batchId, req.body);
     return res.status(200).json(batch);  
   } catch (err) {
     return res.status(500).json({ error: err.message });
@@ -38,7 +38,7 @@ exports.updateBatch = async (req, res) => {
 
 exports.deleteBatch = async (req, res) => {
   try {
-    const batch = await Batch.findByIdAndDelete(req.params.batchId);
+    const batch = await batchModel.findByIdAndDelete(req.params.batchId);
     return res.status(200).json(batch);  
   } catch (err) {
     return res.status(500).json({ error: err.message });
