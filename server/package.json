@@ -3,10 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start-dev": "DEBUG=server:* babel-node ./src/bin/www.js",
-    "clean": "rm -rf build",
-    "build": "npm run clean && babel ./src --out-dir build --copy-files",
-    "start-prod": "node ./build/bin/www.js"
+    "start": "nodemon",
+    "serve": "node build/app.js",
+    "build": "babel ./src --out-dir -d build"
   },
   "dependencies": {
     "@babel/cli": "^7.18.9",
@@ -17,6 +16,7 @@
     "body-parser": "^1.20.0",
     "cookie-parser": "~1.4.4",
     "core-js": "^3.23.5",
+    "cors": "^2.8.5",
     "debug": "~2.6.9",
     "dotenv": "^16.0.1",
     "express": "~4.16.1",
@@ -35,7 +35,7 @@
     "supertest": "^6.2.4"
   },
   "nodemonConfig": {
-    "exec": "npm run dev",
+    "exec": "NODE_ENV=development npm run build && npm run serve",
     "watch": [
       "src/*",
       "public/*"

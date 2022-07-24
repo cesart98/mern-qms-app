@@ -1,9 +1,15 @@
 "use strict";
 
-var mongoose = require('mongoose');
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
 
-var Schema = mongoose.Schema;
-var BatchSchema = new Schema({
+var _mongoose = _interopRequireDefault(require("mongoose"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+var BatchSchema = new _mongoose["default"].Schema({
   id: {
     type: String,
     required: true
@@ -46,4 +52,8 @@ var BatchSchema = new Schema({
 BatchSchema.virtual('url').get(function () {
   return '/inventory/batch/' + this._id;
 });
-module.exports = mongoose.model('Batch', BatchSchema);
+
+var model = _mongoose["default"].model('Batch', BatchSchema);
+
+var _default = model;
+exports["default"] = _default;

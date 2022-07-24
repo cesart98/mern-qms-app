@@ -1,14 +1,21 @@
 "use strict";
 
-var batchController = require('./batch.controller.js');
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
 
-var userController = require('./user.controller.js');
+var _batchController = _interopRequireDefault(require("./batch.controller.js"));
 
-var authController = require('./auth.controller.js');
+var _userController = _interopRequireDefault(require("./user.controller.js"));
 
-var controllers = {
-  batchController: batchController,
-  userController: userController,
-  authController: authController
+var _authController = _interopRequireDefault(require("./auth.controller.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+var _default = {
+  batchController: _batchController["default"],
+  userController: _userController["default"],
+  authController: _authController["default"]
 };
-module.exports = controllers;
+exports["default"] = _default;

@@ -1,6 +1,9 @@
-import mongoose from 'mongoose';
+import 'dotenv/config';
+import mongoose ,{Schema} from 'mongoose'
 
-const BatchSchema = new mongoose.Schema({
+const db = mongoose.createConnection(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+
+const BatchSchema = new Schema({
   id: {type: String, required: true},
   material_id: {type: String, required: true},
   material_name: {type: String, required: true},
@@ -16,10 +19,13 @@ const BatchSchema = new mongoose.Schema({
   ], default: 'Pending Inspection' }
 });
 
-BatchSchema.virtual('url').get(function() {
-  return '/inventory/batch/' + this._id;
+db.model('Batch', BatchSchema);
+
+const UserSchema = new Schema({
+  username: { type: String, required: true },
+  password: { type: String, required: true },
 });
 
-const model = mongoose.model('Batch', BatchSchema);
+db.model('User', UserSchema);
 
-export default model
+export default db

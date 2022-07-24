@@ -1,26 +1,32 @@
 "use strict";
 
-var jwt = require('jsonwebtoken');
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
 
-var passport = require('passport');
+var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
 
-var _require = require('../models'),
-    batchModel = _require.batchModel;
+var _mongoose = _interopRequireDefault(require("mongoose"));
 
-exports.login = function (req, res) {
-  passport.authenticate('local', {
-    session: false
-  }, function (err, user) {
-    try {
-      var token = jwt.sign(user, 'my_secret');
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+var userModel = _mongoose["default"].model('User');
+
+var authController = {
+  login: function login(req, res, next) {
+    userModel.findOne({
+      username: req.body.username
+    }).then(function (user) {
+      return _jsonwebtoken["default"].sign({
+        id: user
+      }, "JWT_SECRET");
+    }).then(function (token) {
       return res.status(200).json({
-        user: user,
         token: token
       });
-    } catch (_unused) {
-      return res.status(400).json({
-        err: err
-      });
-    }
-  });
+    })["catch"](next(err));
+  }
 };
+var _default = authController;
+exports["default"] = _default;

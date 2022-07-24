@@ -1,11 +1,18 @@
 "use strict";
 
-var batchModel = require('./batch.model.js');
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
 
-var userModel = require('./user.model.js');
+var _batch = _interopRequireDefault(require("./batch.model"));
 
-var models = {
-  batchModel: batchModel,
-  userModel: userModel
+var _user = _interopRequireDefault(require("./user.model"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+var _default = {
+  users: _user["default"],
+  batches: _batch["default"]
 };
-module.exports = models;
+exports["default"] = _default;
