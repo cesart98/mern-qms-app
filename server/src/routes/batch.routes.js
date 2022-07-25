@@ -1,16 +1,9 @@
 import { Router } from 'express';
 import batchController from '../controllers/batch.controller';
-import passport from 'passport';
+import passport from '../utils/auth.util';
 const router = Router();
 
-router.use((req, res, next) => {
-  try {
-    passport.authenticate('jwt', {session: false});
-    next();
-  } catch (err) {
-    next(err)
-  }
-})
+router.use(passport.authenticate('jwt', {session: false}))
 
 router.get('/', batchController.readAllBatches);
 

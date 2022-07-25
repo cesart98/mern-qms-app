@@ -9,22 +9,14 @@ var _express = require("express");
 
 var _batch = _interopRequireDefault(require("../controllers/batch.controller"));
 
-var _passport = _interopRequireDefault(require("passport"));
+var _auth = _interopRequireDefault(require("../utils/auth.util"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var router = (0, _express.Router)();
-router.use(function (req, res, next) {
-  try {
-    _passport["default"].authenticate('jwt', {
-      session: false
-    });
-
-    next();
-  } catch (err) {
-    next(err);
-  }
-});
+router.use(_auth["default"].authenticate('jwt', {
+  session: false
+}));
 router.get('/', _batch["default"].readAllBatches);
 router.get('/:batchId', _batch["default"].readBatch);
 router.post('/', _batch["default"].createBatch);
