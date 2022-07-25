@@ -1,9 +1,7 @@
 import 'dotenv/config';
-import mongoose ,{Schema} from 'mongoose'
+import mongoose from 'mongoose';
 
-const db = mongoose.createConnection(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-
-const BatchSchema = new Schema({
+const BatchSchema = new mongoose.Schema({
   id: {type: String, required: true},
   material_id: {type: String, required: true},
   material_name: {type: String, required: true},
@@ -19,13 +17,19 @@ const BatchSchema = new Schema({
   ], default: 'Pending Inspection' }
 });
 
-db.model('Batch', BatchSchema);
-
-const UserSchema = new Schema({
+const UserSchema = new mongoose.Schema({
   username: { type: String, required: true },
   password: { type: String, required: true },
 });
 
-db.model('User', UserSchema);
+const mongoUri = process.env.MONGO_URI;
+const mongoOpts = { 
+  useNewUrlParser: true, 
+  useUnifiedTopology: true,
+}
 
-export default db
+mongoose.connect(mongoUri, mongoOpts);
+mongoose.connection.model('Batch', BatchSchema);
+mongoose.connection.model('User', UserSchema);
+
+export default mongoose.connection;

@@ -5,10 +5,9 @@ import passport from 'passport';
 
 const User = db.model('User')
 
-passport.use('jwt', new jwtStrategy({
+passport.use(new jwtStrategy({
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: 'JWT_SECRET',
-  algorithms: ['RS256']
+  secretOrKey: 'JWT_SECRET'
 }, async (payload, done) => {
   try {
     const user = await User.findOne({_id: payload.sub});
@@ -19,4 +18,4 @@ passport.use('jwt', new jwtStrategy({
   }
 }))
 
-export default passport
+export default passport;

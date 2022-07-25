@@ -1,53 +1,25 @@
 import { Router } from 'express';
-import db from '../utils/database.util'
-
+import batchController from '../controllers/batch.controller';
+import passport from 'passport';
 const router = Router();
 
-const Batch = db.model('Batch')
-
-router.get('/', async (req, res, next) => {
+router.use((req, res, next) => {
   try {
-    const batches = await Batch.find();
-    return res.status(200).json(batches);
+    passport.authenticate('jwt', {session: false});
+    next();
   } catch (err) {
-    return next(err);
+    next(err)
   }
-});
+})
 
-router.get('/:batchId', async (req, res, next) => {
-  try {
-    const batch = await Batch.findById(req.params.batchId);
-    return res.status(200).json(batch);  
-  } catch (err) {
-    return next(err);
-  }
-});
+router.get('/', batchController.readAllBatches);
 
-router.post('/', async (req, res, next) => {
-  try {
-    const batch = await Batch.create(req.body);
-    return res.status(201).json(batch);  
-  } catch (err) {
-    return next(err);
-  }
-});
+router.get('/:batchId', batchController.readBatch);
 
-router.put('/:batchId', async (req, res, next) => {
-  try {
-    const batch = await Batch.findByIdAndUpdate(req.params.batchId, req.body);
-    return res.status(200).json(batch);  
-  } catch (err) {
-    return next(err);
-  }
-});
+router.post('/', batchController.createBatch);
 
-router.delete('/:batchId', async (req, res, next) => {
-  try {
-    const batch = await Batch.findByIdAndDelete(req.params.batchId);
-    return res.status(200).json(batch);  
-  } catch (err) {
-    return next(err);
-  }
-});
+router.put('/:batchId', batchController.updateBatch);
+
+router.delete('/:batchId', batchController.deleteBatch);
 
 export default router;

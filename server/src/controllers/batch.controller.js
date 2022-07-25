@@ -1,6 +1,9 @@
-var { batchModel } = require('../models');
+import mongoose from 'mongoose';
+const batchModel = mongoose.model('Batch');
 
-exports.readAllBatches =  async (req, res) => {
+let controller = {};
+
+controller.readAllBatches =  async (req, res) => {
   try {
     const batches = await batchModel.find();
     return res.status(200).json(batches);
@@ -9,7 +12,7 @@ exports.readAllBatches =  async (req, res) => {
   }
 };
 
-exports.readBatch = async (req, res) => {
+controller.readBatch = async (req, res) => {
   try {
     const batch = await batchModel.findById(req.params.batchId);
     return res.status(200).json(batch);  
@@ -18,7 +21,7 @@ exports.readBatch = async (req, res) => {
   }
 };
 
-exports.createBatch = async (req, res) => {
+controller.createBatch = async (req, res) => {
   try {
     const batch = await batchModel.create(req.body);
     return res.status(201).json(batch);  
@@ -27,7 +30,7 @@ exports.createBatch = async (req, res) => {
   }
 };
 
-exports.updateBatch = async (req, res) => {
+controller.updateBatch = async (req, res) => {
   try {
     const batch = await batchModel.findByIdAndUpdate(req.params.batchId, req.body);
     return res.status(200).json(batch);  
@@ -36,7 +39,7 @@ exports.updateBatch = async (req, res) => {
   }
 };
 
-exports.deleteBatch = async (req, res) => {
+controller.deleteBatch = async (req, res) => {
   try {
     const batch = await batchModel.findByIdAndDelete(req.params.batchId);
     return res.status(200).json(batch);  
@@ -44,3 +47,5 @@ exports.deleteBatch = async (req, res) => {
     return res.status(500).json({ error: err.message });
   }
 };
+
+export default controller;
