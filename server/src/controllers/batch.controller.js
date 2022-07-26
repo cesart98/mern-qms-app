@@ -1,5 +1,5 @@
-import mongoose from 'mongoose';
-const batchModel = mongoose.model('Batch');
+import db from '../utils/database.util'
+const batchModel = db.model('Batch');
 
 let controller = {};
 

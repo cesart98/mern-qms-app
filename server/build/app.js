@@ -21,8 +21,6 @@ var _batch = _interopRequireDefault(require("./routes/batch.routes"));
 
 require("./utils/database.util");
 
-var _auth2 = _interopRequireDefault(require("./utils/auth.util"));
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var app = (0, _express["default"])();
@@ -33,7 +31,6 @@ app.use(_express["default"].urlencoded({
 }));
 app.use((0, _cookieParser["default"])());
 app.use((0, _cors["default"])());
-app.use(_auth2["default"].initialize());
 app.use('/api/users', _auth["default"]);
 app.use('/api/batches', _batch["default"]);
 app.use(function (err, req, res, next) {

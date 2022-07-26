@@ -7,17 +7,15 @@ import passport from 'passport';
 const User = db.model('User')
 
 passport.use('local', new localStrategy({
-  usernameField: "username",
-  passwordField: "password",
-}, async(username, password, done) => {
+  session: false,
+  passReqToCallback: true
+}, async (req, username, password, done) => {
   try {
-    const user = await User.findOne({username: username});
-    if (!user || user.password !== password) {
-      throw new Error('Incorrect username or password')
-    }
+    const user = await User.findOne({username: req.body.username, password: req.body.password});
+    if (!user) { throw new Error('Incorrect username or password') }
     return done(null, user);
   } catch (err) {
-    return(err, false);
+    return done(err);
   }
 }))
 
