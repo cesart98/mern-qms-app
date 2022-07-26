@@ -1,10 +1,10 @@
-import db from '../utils/database.util'
+import database from '../utils/database.util'
 import { Strategy as jwtStrategy } from 'passport-jwt';
 import { Strategy as localStrategy } from 'passport-local';
 import { ExtractJwt } from 'passport-jwt';
 import passport from 'passport';
 
-const User = db.model('User')
+const User = database.model('User');
 
 passport.use('local', new localStrategy({
   session: false,

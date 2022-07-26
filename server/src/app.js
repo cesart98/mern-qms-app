@@ -8,7 +8,7 @@ import cors from 'cors';
 import authRoutes from './routes/auth.routes'
 import batchRoutes from './routes/batch.routes'
 
-import './utils/database.util';
+import './utils/database.util'
 
 const app = express();
 

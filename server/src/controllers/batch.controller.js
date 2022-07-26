@@ -1,5 +1,5 @@
-import db from '../utils/database.util'
-const batchModel = db.model('Batch');
+import database from '../utils/database.util'
+const batchModel = database.model('Batch');
 
 let controller = {};
 

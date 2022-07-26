@@ -9,12 +9,12 @@ var _express = require("express");
 
 var _auth = _interopRequireDefault(require("../controllers/auth.controller"));
 
-var _passport = _interopRequireDefault(require("passport"));
+var _auth2 = _interopRequireDefault(require("../utils/auth.util"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var router = (0, _express.Router)();
-router.post('/login', _passport["default"].authenticate('local', {
+router.post('/login', _auth2["default"].authenticate('local', {
   session: false
 }), _auth["default"].getToken);
 var _default = router;
