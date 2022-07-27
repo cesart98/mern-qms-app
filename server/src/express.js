@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors());
 
-app.use('/api/users', authRoutes);
+app.use('/api/auth', authRoutes);
 app.use('/api/batches', batchRoutes);
 
 export default app;
