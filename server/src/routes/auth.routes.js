@@ -1,7 +1,7 @@
 import express from 'express';
 const router = express.Router();
 import authController from '../controllers/auth.controller';
-import passport from '../utils/auth.util';
+import passport from '../middleware/passport';
 
 router.post('/login', 
   passport.authenticate('local', {session: false}), 
