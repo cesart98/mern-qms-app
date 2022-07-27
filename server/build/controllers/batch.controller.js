@@ -7,7 +7,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
-var _database = _interopRequireDefault(require("../utils/database.util"));
+var _batch = _interopRequireDefault(require("../models/batch.model"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -16,8 +16,6 @@ function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyri
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-var batchModel = _database["default"].model('Batch');
 
 var controller = {};
 
@@ -30,7 +28,7 @@ controller.readAllBatches = /*#__PURE__*/function () {
           case 0:
             _context.prev = 0;
             _context.next = 3;
-            return batchModel.find();
+            return _batch["default"].find();
 
           case 3:
             batches = _context.sent;
@@ -65,7 +63,7 @@ controller.readBatch = /*#__PURE__*/function () {
           case 0:
             _context2.prev = 0;
             _context2.next = 3;
-            return batchModel.findById(req.params.batchId);
+            return _batch["default"].findById(req.params.batchId);
 
           case 3:
             batch = _context2.sent;
@@ -100,7 +98,7 @@ controller.createBatch = /*#__PURE__*/function () {
           case 0:
             _context3.prev = 0;
             _context3.next = 3;
-            return batchModel.create(req.body);
+            return _batch["default"].create(req.body);
 
           case 3:
             batch = _context3.sent;
@@ -135,7 +133,7 @@ controller.updateBatch = /*#__PURE__*/function () {
           case 0:
             _context4.prev = 0;
             _context4.next = 3;
-            return batchModel.findByIdAndUpdate(req.params.batchId, req.body);
+            return _batch["default"].findByIdAndUpdate(req.params.batchId, req.body);
 
           case 3:
             batch = _context4.sent;
@@ -170,7 +168,7 @@ controller.deleteBatch = /*#__PURE__*/function () {
           case 0:
             _context5.prev = 0;
             _context5.next = 3;
-            return batchModel.findByIdAndDelete(req.params.batchId);
+            return _batch["default"].findByIdAndDelete(req.params.batchId);
 
           case 3:
             batch = _context5.sent;

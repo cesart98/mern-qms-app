@@ -53,7 +53,6 @@ BatchSchema.virtual('url').get(function () {
   return '/inventory/batch/' + this._id;
 });
 
-var model = _mongoose["default"].model('Batch', BatchSchema);
+var _default = _mongoose["default"].model('Batch', BatchSchema);
 
-var _default = model;
 exports["default"] = _default;

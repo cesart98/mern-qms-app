@@ -20,6 +20,4 @@ BatchSchema.virtual('url').get(function() {
   return '/inventory/batch/' + this._id;
 });
 
-const model = mongoose.model('Batch', BatchSchema);
-
-export default model
+export default mongoose.model('Batch', BatchSchema);

@@ -20,7 +20,6 @@ var UserSchema = new _mongoose["default"].Schema({
   }
 });
 
-var User = _mongoose["default"].model('User', UserSchema);
+var _default = _mongoose["default"].model('User', UserSchema);
 
-var _default = User;
 exports["default"] = _default;
