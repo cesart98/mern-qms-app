@@ -1,0 +1,12 @@
+{
+  "exec": "NODE_ENV=development npm run clean && npm run build && npm run serve",
+  "restartable": "rs",
+  "verbose": true,
+  "watch": [
+    "src/"
+  ],
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "ext": "js json"
+}
