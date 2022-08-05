@@ -7,7 +7,7 @@
     "serve": "NODE_ENV=development node build/app.js",
     "clean": "rm -rf build",
     "build": "babel src --out-dir build",
-    "test": "jest --detectOpenHandles"
+    "test": "jest --detectOpenHandles --watch"
   },
   "dependencies": {
     "async": "^3.2.4",
