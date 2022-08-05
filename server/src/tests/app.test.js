@@ -1,41 +1,113 @@
-var request = require('supertest');
-var express = require('express');
-var app = express();
-require('dotenv').config();
+import { MongoMemoryServer } from 'mongodb-memory-server';
+import mongoose from 'mongoose';
+import request from 'supertest'
+import app from '../express.js';
 
-var indexRouter = require('../routes');
+import Batch from '../models/batch.model.js';
+import User from '../models/user.model.js';
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use("/api", indexRouter);
+const opts = { 
+  useNewUrlParser: true, 
+  useUnifiedTopology: true,
+}
 
-const testServer = require('../utils/testServer.js');
+const testBatches = [
+  {
+    id: "10489GN-1" ,
+    material_id: "T10382AN",
+    material_name: "ep Dualfilter Pipette Tips 1000uL",
+    location: "FL-31",
+    client: "C413",
+    quantity_total: "10 EA",
+    date_recieve: "01AUG2021",
+    date_expire: "01AUG2023",
+    status: "Pending Inspection"
+  },
+  {
+    id: "10361FT-1" ,
+    material_id: "T30183AN",
+    material_name: "DMEM, GlutaMAX Supplement 500mL",
+    location: "FL-01",
+    client: "C210",
+    quantity_total: "5000 mL",
+    date_recieve: "31JUL2020",
+    date_expire: "31JUL2024",
+    status: "Pending Sampling"
+  },
+  {
+    id: "10127BG-1" ,
+    material_id: "T50291AN",
+    material_name: "Citric Acid Monohydrate, ACS, 20g",
+    location: " FL-15",
+    client: "C340",
+    quantity_total: "100 g",
+    date_recieve: "20JAN2021",
+    date_expire: "20JAN2022",
+    status: "Pending Testing"
+  }
+]
 
-describe("Batches API", () => {
+const testUser = {
+  username: "testUsername",
+  password: "testPassword",
+}
+
+beforeAll(async () => {
+  await MongoMemoryServer.create()
+    .then((server) => mongoose.connect(server.getUri(), opts))
+    .then(() => Batch.create(testBatches))
+    .then(() => User.create(testUser));
+})
+afterAll(async () => {
+  await mongoose.disconnect();
+})
+
+describe("Batch API", () => {
+  let token;
 
   beforeAll(async () => {
-    testServer.connect();
-  })
-  afterAll(async () => {
-    testServer.disconnect();
+    const res = await request(app)
+      .post('/api/auth/login')
+      .set('Content-Type', 'application/json')
+      .send({ 
+        username: testUser.username, 
+        password: testUser.password
+      })
+    
+    token = await res.body.token;
   })
 
-  describe("GET Requests", () => {
+  describe("GET Endpoints", () => {
     it("Should fetch all batches", async () => {
-      const response = await request(app)
+      const res = await request(app)
         .get('/api/batches')
-      expect(response.status).toBe(200);
-      expect(response.headers["content-type"]).toMatch(/json/);
+        .set('Authorization', `bearer ${token}`)
+        .set('Content-Type', 'application/json');
+
+      expect(res.status).toBe(200);
+      expect(res.body).toHaveProperty('batches');
+      expect(res.body.batches).toBeDefined();
+      expect(res.body.batches).not.toBeNull();
+      expect(res.headers["content-type"]).toMatch(/json/);
     });
     it("Should fetch specific batch", async () => {
-      const response = await request(app)
-        .get('/api/batches/62b248c3e18f98e690d0ee7c')
-      expect(response.status).toBe(200);
-      expect(response.headers["content-type"]).toMatch(/json/);
+      const batch = await Batch.findOne({id: "10489GN-1"});
+      const res = await request(app)
+        .get(`/api/batches/${batch._id}`)
+        .set('Authorization', `bearer ${token}`)
+        .set('Content-Type', 'application/json');
+
+      expect(res.status).toBe(200);
+      expect(res.body).toHaveProperty('batch');
+      expect(res.body.batch).toBeDefined();
+      expect(res.body.batch).not.toBeNull();
+      expect(res.body.batch).toEqual(
+        expect.objectContaining(testBatches[0])
+      );
+      expect(res.headers["content-type"]).toMatch(/json/);
     });
   })
-
-  describe("POST Requests", () => {
+  describe("POST Endpoints", () => {
     const newBatch = {
       id: '77777GG-1' ,
       material_id: 'T77777AN',
@@ -49,34 +121,52 @@ describe("Batches API", () => {
     }
 
     it("Should create new batch", async () => {
-      let response = await request(app)
+      let res = await request(app)
         .post('/api/batches')
+        .set('Authorization', `bearer ${token}`)
         .send(newBatch)
-      expect(response.status).toBe(201);
-      expect(response.headers["content-type"]).toMatch(/json/);
+
+      expect(res.status).toBe(201);
+      expect(res.body).toHaveProperty('batch');
+      expect(res.body.batch).toBeDefined();
+      expect(res.body.batch).not.toBeNull();
+      expect(res.body.batch).toEqual(
+        expect.objectContaining(newBatch)
+      )
+      expect(res.headers["content-type"]).toMatch(/json/);
   
     });
   })
-
-  describe("PUT Requests", () => {
+  describe("PUT Endpoints", () => {
     const updatedProperty = {
       status: 'Released',
     }
     it("Should update specific batch", async () => {
-      const response = await request(app)
-        .put('/api/batches/62b248c3e18f98e690d0ee7c')
-        .send(updatedProperty)
-      expect(response.status).toBe(200);
-      expect(response.headers["content-type"]).toMatch(/json/);
+      const batch = await Batch.findOne({id: "10489GN-1"});
+      const res = await request(app)
+        .put(`/api/batches/${batch._id}`)
+        .set('Authorization', `bearer ${token}`)
+        .send({updatedProperty});
+
+      expect(res.status).toBe(200);
+      expect(res.body).toHaveProperty('batch');
+      expect(res.body.batch).toBeDefined();
+      expect(res.body.batch).not.toBeNull();
+      expect(res.headers["content-type"]).toMatch(/json/);
     });
   })
-
-  describe("DELETE Requests", () => {
+  describe("DELETE Endpoints", () => {
     it("Should delete specific batch", async () => {
-      const response = await request(app)
-        .delete('/api/batches/62b248c3e18f98e690d0ee7c')
-      expect(response.status).toBe(200);
-      expect(response.headers["content-type"]).toMatch(/json/);
+      const batch = await Batch.findOne({id: "10489GN-1"});
+      const res = await request(app)
+        .del(`/api/batches/${batch._id}`)
+        .set('Authorization', `bearer ${token}`);
+
+      expect(res.status).toBe(200);
+      expect(res.body).toHaveProperty('batch');
+      expect(res.body.batch).toBeDefined();
+      expect(res.body.batch).not.toBeNull();
+      expect(res.headers["content-type"]).toMatch(/json/);
     });
   })
 })
