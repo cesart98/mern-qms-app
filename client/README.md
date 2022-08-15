@@ -1,5 +1,5 @@
 
-# mernQMS - Client Application
+# qmsMERN - Client Application
 
 A front-end React application that allows users to perform daily quality control unit processes
 

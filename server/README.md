@@ -1,5 +1,5 @@
 
-# mernQMS - Server Application
+# qmsMERN - Server Application
 
 A back-end Express application that accepts client requests and serves relevant data via RESTful APIs
 
