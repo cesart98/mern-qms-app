@@ -1,41 +1,35 @@
-import { useNavigate } from "react-router-dom";
-
-function NavBrandLogo() {
+export default function Navbar() {
   return (
-    <a className='text-white font-bold' href='/home'>qrsExpress</a>
-  );
-}
-
-function NavDropdown() {
-  let navigate = useNavigate();
-
-  return (
-    <label>
-      <select name="path" id="page_router" onInput={async (event) => {navigate(`/${event.target.value}`)}}>
-        <option value="home">Home</option>
-        <option value="inventory">Inventory</option>
-      </select>
-    </label>
-  );
-}
-
-function UserPhoto() {
-  return (
-   <a href='/'>USER_PHOTO</a>
-  );
- }
-
-
-export default function Header() {
-  return (
-    <nav className="h-14 bg-gray-500 flex justify-between items-center px-6">
-      <div className="flex gap-2">
-        <NavBrandLogo />
-        <NavDropdown />
+    <div className="navbar bg-primary px-4 py-2">
+      <div className="navbar-start">
+        <button className="btn btn-ghost">
+          <a href='/home'>qmsMERN</a>
+        </button>
+        <div className="dropdown">
+          <label tabIndex="0" className="btn btn-ghost">
+            dropdown
+            <svg className="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
+          </label>
+          <ul className="dropdown-content w-44 bg-base-100 p-2 menu menu-compact rounded-box">
+            <li><a href='/home'>Home</a></li>
+            <li><a href='/inventory'>Inventory</a></li>
+          </ul>
+        </div>
       </div>
-      <div className="flex gap-2">
-        <UserPhoto />
+      <div className="navbar-end">
+        <div className="dropdown dropdown-left">
+          <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
+            <div className="rounded-full w-24 bg-white">
+              <img alt="round display of your avatar" src="https://media-exp1.licdn.com/dms/image/C5603AQF1C5rpp6XopQ/profile-displayphoto-shrink_100_100/0/1651628966395?e=1666224000&v=beta&t=uht2TX3Pkhe-k-vCaEsMzM52hrcTb93PdmNkhAp2sAE" />
+            </div>
+          </label>
+          <ul className="dropdown-content w-44 bg-base-100 p-2 menu menu-compact rounded-box">
+            <li><a href='/settings'>Settings</a></li>
+            <li><a href='/login'>Signout</a></li>
+          </ul>
+        </div>
+
       </div>
-    </nav>
+    </div>
   );
 }
