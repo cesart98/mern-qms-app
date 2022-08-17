@@ -5,9 +5,7 @@ export default function Navbar() {
   return (
     <nav className="navbar bg-primary px-4 py-2">
       <div className="navbar-start">
-        <button className="btn btn-ghost">
-          <a href='/home'>qmsMERN</a>
-        </button>
+        <button onClick={() => navigate("/home")} className="btn btn-ghost">qmsMERN</button>
         <div className="dropdown flex">
           <label tabIndex="0" className="btn btn-ghost">
             dropdown
