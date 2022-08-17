@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router-dom";
+
 export default function Navbar() {
+  let navigate = useNavigate();
   return (
     <nav className="navbar bg-primary px-4 py-2">
       <div className="navbar-start">
@@ -11,8 +14,8 @@ export default function Navbar() {
             <svg className="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
           </label>
           <ul className="dropdown-content w-44 bg-base-100 p-2 menu menu-compact rounded-box">
-            <li><a href='/home'>Home</a></li>
-            <li><a href='/inventory'>Inventory</a></li>
+            <li><button onClick={() => navigate("/home")}>Home</button></li>
+            <li><button onClick={() => navigate("/inventory")}>Inventory</button></li>
           </ul>
         </div>
       </div>
@@ -24,8 +27,8 @@ export default function Navbar() {
             </div>
           </label>
           <ul className="dropdown-content w-44 bg-base-100 p-2 menu menu-compact rounded-box">
-            <li><a href='/settings'>Settings</a></li>
-            <li><a href='/login'>Signout</a></li>
+            <li><button onClick={() => navigate("/settings")}>Settings</button></li>
+            <li><button onClick={() => navigate("/login")}>Signout</button></li>
           </ul>
         </div>
 
