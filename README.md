@@ -1,5 +1,5 @@
 
-# qmsMERN
+# qmsMERN [work in progress]
 
 A fullstack MERN application designed to improve business productivity and serve as a quality management system
 
